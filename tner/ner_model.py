@@ -82,6 +82,7 @@ class TransformersNER:
             self.device = 'cpu'
         if self.device == 'cpu':
             self.device = 'cuda' if torch.cuda.device_count() > 0 else 'cpu'
+        
         self.parallel = torch.cuda.device_count() > 1
 
         if self.parallel:

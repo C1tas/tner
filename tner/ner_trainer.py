@@ -199,6 +199,8 @@ class Trainer:
             inputs=self.dataset['tokens'],
             labels=self.dataset['tags'],
             batch_size=self.config['batch_size'],
+            # add by c1tas
+            # mask_by_padding_token=True,
             shuffle=True,
             drop_last=True,
             cache_file_feature=pj(self.checkpoint_dir, "cache", "encoded_feature.pkl")
@@ -291,7 +293,8 @@ class GridSearcher:
                  dataset: List or str = None,
                  local_dataset: List or Dict = None,
                  dataset_split_train: str = 'train',
-                 dataset_split_valid: str = 'validation',
+                 # dataset_split_valid: str = 'validation',
+                 dataset_split_valid: str = 'valid',
                  dataset_name: List or str = None,
                  model: str = 'roberta-large',
                  epoch: int = 10,
@@ -404,6 +407,7 @@ class GridSearcher:
                 tmp = json_load(pj(self.checkpoint_dir, _f))
                 tmp_v = [tmp[k] for k in sorted(tmp.keys())]
                 _tmp_v = [c[k] for k in sorted(tmp.keys())]
+                # print(_f, c)
                 assert tmp_v == _tmp_v, f'{str(tmp_v)}\n not matched \n{str(_tmp_v)}'
         json_save(self.static_config, pj(self.checkpoint_dir, 'config_static.json'))
         json_save(self.dynamic_config, pj(self.checkpoint_dir, 'config_dynamic.json'))

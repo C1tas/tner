@@ -115,6 +115,7 @@ class NERTokenizer:
             encode = self.tokenizer.encode_plus(
                 separator.join(tokens), max_length=max_length, padding='max_length', truncation=True
             )
+            
         if labels:
             assert len(tokens) == len(labels)
             fixed_labels = []
